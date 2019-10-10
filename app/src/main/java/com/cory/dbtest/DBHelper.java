@@ -17,12 +17,12 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table employee(" +
-                " ssn varchar(20) primary key," +
-                " name varchar(1) not null,"+
-                " bdate varchar(10) not null," +
-                " address varchar(30) not null," +
-                " sex varchar(2) not null," +
-                " salary float not null," +
+                "ssn varchar(20) primary key," +
+                "name varchar(1) not null,"+
+                "bdate varchar(10) not null," +
+                "address varchar(30) not null," +
+                "sex varchar(2) not null," +
+                "salary float not null," +
                 "superssn varchar(18) not null," +
                 "dno varchar(3) not null)");
 
@@ -37,20 +37,24 @@ public class DBHelper extends SQLiteOpenHelper {
                 "dlocation varchar(30) not null) ");
 
         db.execSQL("create table project(" +
-                "dnumber char(3) primary key," +
-                "dlocation varcahr(30) not null)");
+                "pnumber char(3) primary key," +
+                "pname varchar(30) not null," +
+                "plocation varcahr(30) not null," +
+                "dnum char(3) not null)");
 
         db.execSQL("create table works_on(" +
-                "essn char(18) primary key," +
-                "pno char(3) not null," +
-                "hours int not null)");
+                "essn char(18)," +
+                "pno char(3)," +
+                "hours int not null," +
+                "primary key(essn,pno))");
 
         db.execSQL("create table dependent(" +
-                "essn char(18) primary key," +
-                "dependent_name char(10) not null," +
+                "essn char(18)," +
+                "dependent_name char(10)," +
                 "sex char(2) not null," +
                 "bdate char(10) not null," +
-                "relationship char(10) not null)");
+                "relationship char(10) not null," +
+                "primary key(essn,dependent_name))");
     }
 
     @Override

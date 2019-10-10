@@ -3,12 +3,14 @@ package com.cory.dbtest;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
@@ -34,6 +36,7 @@ class GridHolder extends RecyclerView.ViewHolder{
 
 public class GridAdapter extends RecyclerView.Adapter<GridHolder> {
     private Context mContext;
+    private RecyclerView mRecyclerView;
     public LinkedList<String> mList=new LinkedList<>();
     private int mColumnColorA;
     private int mColumnColorB;
@@ -41,9 +44,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridHolder> {
     private int mColumnColorD;
     private int mColumnCount;
 
-    public GridAdapter(Context context, int columnCount) {
+    public GridAdapter(Context context, RecyclerView recyclerView) {
         mContext = context;
-        mColumnCount = columnCount;
+        mRecyclerView=recyclerView;
         Resources res=mContext.getResources();
         mColumnColorA=res.getColor(R.color.shallowBlue);
         mColumnColorB=res.getColor(R.color.shallowGray);
@@ -60,14 +63,20 @@ public class GridAdapter extends RecyclerView.Adapter<GridHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull GridHolder holder, int position) {
+        GridLayoutManager mgr=(GridLayoutManager)mRecyclerView.getLayoutManager();
+        if(mgr!=null) {
+            mColumnCount = mgr.getSpanCount();
+        }
         int remainder=position%(mColumnCount*2);
         if(remainder<mColumnCount){
             if (remainder%2==0) {
                 holder.bindWithColumnColor(mList.get(position), mColumnColorA);
             }else{
                 holder.bindWithColumnColor(mList.get(position), mColumnColorB);
+                Log.d("TAGG",remainder+"");
             }
         }else {
+            remainder%=mColumnCount;
             if(remainder%2==0){
                 holder.bindWithColumnColor(mList.get(position), mColumnColorC);
             }else{
