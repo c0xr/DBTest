@@ -24,20 +24,33 @@ public class DBHelper extends SQLiteOpenHelper {
                 " sex varchar(2) not null," +
                 " salary float not null," +
                 "superssn varchar(18) not null," +
-                "dno varchar(3) not null" +
-                ")");
+                "dno varchar(3) not null)");
 
         db.execSQL("create table department(" +
                 "dnumber varchar(3) primary key," +
                 "dname varchar(30) not null," +
                 "mgrssn varchar(18) not null," +
-                "mgrstartdate date not null" +
-                ") ");
+                "mgrstartdate date not null) ");
 
         db.execSQL("create table depart_location(" +
                 "dnumber char(3) primary key," +
-                "dlocation varchar(30) not null" +
-                ") ");
+                "dlocation varchar(30) not null) ");
+
+        db.execSQL("create table project(" +
+                "dnumber char(3) primary key," +
+                "dlocation varcahr(30) not null)");
+
+        db.execSQL("create table works_on(" +
+                "essn char(18) primary key," +
+                "pno char(3) not null," +
+                "hours int not null)");
+
+        db.execSQL("create table dependent(" +
+                "essn char(18) primary key," +
+                "dependent_name char(10) not null," +
+                "sex char(2) not null," +
+                "bdate char(10) not null," +
+                "relationship char(10) not null)");
     }
 
     @Override
